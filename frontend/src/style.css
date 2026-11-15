@@ -1,0 +1,238 @@
+:root {
+--bg: #7d26d3;
+--bg2: #2e1065; /* Morado muy oscuro elegante de fondo general si aplica */
+--color: #2e1065;
+--panel: #dc2c2c;
+--border: #c1aada;
+--error: #e11d48;
+--ok: #7c3aed; /* Tono morado vibrante para éxito / primario */
+--primary: #6b21a8; /* Morado principal profundo */
+}
+
+*{
+    box-sizing: border-box;
+    /*margin: auto;*/
+    padding: 0;
+}
+
+body{
+    background-color: #9a73a0; 
+    color: var(--color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.top {
+    background-color: var(--primary);
+    color: var(--panel);
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #581c87;
+    box-shadow: 0 4px 6px -1px rgba(107, 33, 168, 0.15);
+}
+
+.status {
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+main{
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.panel{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 10px 15px -3px rgba(107, 33, 168, 0.05);
+    width: 50%;
+}
+
+.panel h2 {
+    margin-bottom: 1.2rem;
+    color: var(--primary);
+    font-size: 1.4rem;
+}
+
+field {
+    display: block;
+    margin-bottom: 1.2rem;
+}
+
+label{
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color);
+}
+
+input{
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 3px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(107, 33, 168, 0.15);
+}
+
+input.valido {
+    border-color: var(--ok);
+}
+
+input.invalido {
+    border-color: var(--error);
+}
+
+small.ayuda{
+    font-size: 0.75rem;
+    color: #7e22ce;
+    margin-top: 0.25rem;
+}
+
+small.error{
+    font-size: 0.75rem;
+    color: var(--error);
+    margin-top: 0.25rem;
+}
+
+.actions{
+    display: flex;
+    gap: 10px;
+    margin-top: 1.5rem;
+    
+}
+
+.btn{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.btn-save{
+    background: var(--primary);
+    color: white;
+    flex: 1;
+}
+.btn-save:hover { background: #581c87; }
+
+.btn-cancel{
+    background: #f3e8ff;
+    color: #6b21a8;
+}
+.btn-cancel:hover { background: #e9d5ff; }
+
+.list {
+    list-style-type: none;
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+.items{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #e9d5ff;
+}
+
+.items:hover {
+    background: #faf5ff;
+}
+
+.datos {
+    font-size: 0.95rem;
+    color: var(--color);
+}
+
+.datos strong {
+    color: var(--primary);
+}
+
+.botones{
+    display: flex;
+    gap: 8px;
+}
+
+.btn-warning {
+    background: #a855f7;
+    color: white;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+.btn-warning:hover { background: #9333ea; }
+
+.btn-danger {
+    background: var(--error);
+    color: white;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+.btn-danger:hover { background: #be123c; }
+
+.vacio {
+    text-align: center;
+    color: #7e22ce;
+    padding: 20px;
+    font-style: italic;
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #3b0764;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(59, 7, 100, 0.2);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.toast.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+@media (max-width: 900px) {
+    main {
+        flex-direction: column;
+    }
+    .panel {
+        width: 100%;
+    }
+}
+
+h2{
+    color: #2e1065;
+}
+
+input{
+     color: #2e1065 !important;  
+}

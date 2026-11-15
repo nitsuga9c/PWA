@@ -1,0 +1,65 @@
+.form-container {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(107, 33, 168, 0.05);
+  margin-top: 20px;
+  border: 1px solid #e9d5ff;
+}
+
+.form-title {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #3b0764;
+  margin-bottom: 16px;
+}
+
+.form-group {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #581c87;
+}
+
+
+.form-group input {
+  padding: 10px;
+  border: 1px solid #e9d5ff;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background-color: #ffffff !important; /* Fondo blanco*/
+  color: #2e1065 !important;           /* Texto morado oscuro*/
+}
+
+/* Color del texto auxiliar de marcador de posición (placeholder) */
+.form-group input::placeholder {
+  color: #9ca3af;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.form-submit-btn {
+  background-color: #7c3aed;
+  color: white;
+  border: None;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+
+.form-submit-btn:hover {
+  background-color: #6d28d9;
+}
