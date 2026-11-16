@@ -8,8 +8,10 @@ import FormularioMedicamento from '../components/FormularioMedicamento/Formulari
 export default function AdminPanel() {
   const navigate = useNavigate();
   const [medicamentos, setMedicamentos] = useState([]);
+  
+  // Estado para saber cuál medicamento se está editando actualmente
+  const [medicamentoEditando, setMedicamentoEditando] = useState(null);
 
-  // Cargar medicamentos del backend
   useEffect(() => {
     fetch('http://localhost:5000/api/medicines')
       .then(res => res.json())
@@ -25,12 +27,21 @@ export default function AdminPanel() {
     setMedicamentos([nuevoMed, ...medicamentos]);
   };
 
-  // NUEVA FUNCIÓN PARA ELIMINAR
+  // Función para actualizar el estado tras una edición exitosa
+  const handleActualizarMedicamento = (medicamentoActualizado) => {
+    setMedicamentos(medicamentos.map(med => 
+      (med._id === medicamentoActualizado._id || med.id === medicamentoActualizado._id) 
+        ? medicamentoActualizado 
+        : med
+    ));
+    setMedicamentoEditando(null);
+  };
+
   const handleEliminarMedicamento = async (id) => {
     if (!window.confirm('¿Estás seguro de que deseas eliminar este medicamento?')) return;
 
     try {
-      const token = localStorage.getItem('token'); // Si tu ruta requiere token de admin
+      const token = localStorage.getItem('token');
       const response = await fetch(`http://localhost:5000/api/medicines/${id}`, {
         method: 'DELETE',
         headers: {
@@ -39,7 +50,7 @@ export default function AdminPanel() {
       });
 
       if (response.ok) {
-        // Filtramos el estado para remover el medicamento eliminado de la interfaz
+        // Eliminar el medicamento del estado local
         setMedicamentos(medicamentos.filter(med => (med._id || med.id) !== id));
       } else {
         const errorData = await response.json();
@@ -53,7 +64,7 @@ export default function AdminPanel() {
 
   return (
     <div style={{ backgroundColor: '#faf5ff', minHeight: '100vh', paddingBottom: '40px' }}>
-      <HeaderFarmacia onLogout= {handleLogout} />
+      <HeaderFarmacia onLogout={handleLogout} />
       
       <div style={{ maxWidth: '1100px', margin: '20px auto', padding: '0 20px' }}>
         
@@ -63,9 +74,17 @@ export default function AdminPanel() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px' }}>
-          {/* Pasar la función onDelete a la tabla */}
-          <FormularioMedicamento onAgregar={handleAgregarMedicamento} />
-          <InventarioTabla medicamentos={medicamentos} onDelete={handleEliminarMedicamento} />
+          <FormularioMedicamento 
+            onAgregar={handleAgregarMedicamento} 
+            medicamentoEditando={medicamentoEditando}
+            onActualizar={handleActualizarMedicamento}
+            cancelarEdicion={() => setMedicamentoEditando(null)}
+          />
+          <InventarioTabla 
+            medicamentos={medicamentos} 
+            onDelete={handleEliminarMedicamento} 
+            onEdit={(med) => setMedicamentoEditando(med)}
+          />
         </div>
 
       </div>

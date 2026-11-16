@@ -1,7 +1,7 @@
 import React from 'react';
 import './InventarioTabla.css';
 
-export default function InventarioTabla({ medicamentos, onDelete }) {
+export default function InventarioTabla({ medicamentos, onDelete, onEdit }) {
   return (
     <div className="table-container">
       <h2 className="table-title">Inventario Actual</h2>
@@ -13,13 +13,12 @@ export default function InventarioTabla({ medicamentos, onDelete }) {
             <th>Stock</th>
             <th>Precio Público</th>
             <th>Estado</th>
-            <th>Acciones</th>
-            <th></th>
+            <th>Editar</th>
+            <th>Eliminar</th>
           </tr>
         </thead>
         <tbody>
           {medicamentos && medicamentos.map((med) => {
-            // Extraer de forma segura el ID de MongoDB (_id)
             const uniqueKey = med._id || med.id;
             const codigo = med.codigoArticulo || 'N/D';
             const descripcion = med.descripcion || med.name || 'Sin descripción';
@@ -39,7 +38,7 @@ export default function InventarioTabla({ medicamentos, onDelete }) {
                 </td>
                 <td>
                   <button 
-                    onClick={() => onEdit(uniqueKey)}
+                    onClick={() => onEdit(med)}
                     className="btn-warning"
                     style={{
                       backgroundColor: '#e89c23',

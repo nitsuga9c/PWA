@@ -27,14 +27,13 @@
   color: #581c87;
 }
 
-
 .form-group input {
   padding: 10px;
   border: 1px solid #e9d5ff;
   border-radius: 6px;
   font-size: 0.95rem;
-  background-color: #ffffff !important; /* Fondo blanco*/
-  color: #2e1065 !important;           /* Texto morado oscuro*/
+  background-color: #ffffff !important; /* Fondo blanco */
+  color: #2e1065 !important;           /* Texto morado oscuro */
 }
 
 /* Color del texto auxiliar de marcador de posición (placeholder) */
@@ -51,7 +50,7 @@
 .form-submit-btn {
   background-color: #7c3aed;
   color: white;
-  border: None;
+  border: none;
   padding: 10px 16px;
   border-radius: 6px;
   font-weight: 600;
@@ -62,4 +61,21 @@
 
 .form-submit-btn:hover {
   background-color: #6d28d9;
+}
+
+/* Estilo para el botón de cancelar edición */
+.form-cancel-btn {
+  background-color: #6b7280;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+
+.form-cancel-btn:hover {
+  background-color: #4b5563;
 }
