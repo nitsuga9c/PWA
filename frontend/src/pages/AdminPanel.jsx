@@ -70,7 +70,8 @@ export default function AdminPanel() {
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px', marginBottom: '20px' }}>
           <TarjetaEstadistica titulo="Total Medicamentos" valor={medicamentos.length} colorBorde="#8b5cf6" />
-          <TarjetaEstadistica titulo="Stock Crítico" valor={medicamentos.filter(m => (m.stock || m.existenciasTotal) <= 10).length} colorBorde="#e11d48" />
+          <TarjetaEstadistica titulo="Stock Crítico" valor={medicamentos.filter(m => (m.stock || m.existenciasTotal) <= 10  && (m.stock || m.existenciasTotal) >0).length} colorBorde="#e1c71d" />
+          <TarjetaEstadistica titulo="Sin Stock" valor={medicamentos.filter(m => (m.stock || m.existenciasTotal) === 0  ).length} colorBorde="#e11d48" />
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px' }}>

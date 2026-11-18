@@ -46,6 +46,11 @@
 }
 
 .badge-stock.bajo {
-  background-color: #ffe4e6;
-  color: #9f1239;
+  background-color: #eef0c9;
+  color: #89884d;
+}
+
+.badge-stock.nulo {
+   background-color: #f19797;
+   color:#a02323;
 }

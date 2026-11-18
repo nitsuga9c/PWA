@@ -32,8 +32,8 @@ export default function InventarioTabla({ medicamentos, onDelete, onEdit }) {
                 <td>{existencias} unidades</td>
                 <td>${Number(precio).toFixed(2)}</td>
                 <td>
-                  <span className={`badge-stock ${existencias > 10 ? 'ok' : 'bajo'}`}>
-                    {existencias > 10 ? 'Disponible' : 'Stock Bajo'}
+                  <span className={`badge-stock ${existencias > 10 ? 'ok' : existencias <= 9 && existencias >=1 ?'bajo' : 'nulo'}`}>
+                    {existencias > 10 ? 'Disponible': existencias <= 9 && existencias >=1 ? 'Stock Bajo' : 'Sin stock'}
                   </span>
                 </td>
                 <td>
