@@ -1,12 +1,12 @@
 :root {
 --bg: #7d26d3;
---bg2: #2e1065; /* Morado muy oscuro elegante de fondo general si aplica */
+--bg2: #2e1065; 
 --color: #2e1065;
 --panel: #dc2c2c;
 --border: #c1aada;
 --error: #e11d48;
---ok: #7c3aed; /* Tono morado vibrante para éxito / primario */
---primary: #6b21a8; /* Morado principal profundo */
+--ok: #7c3aed; 
+--primary: #6b21a8; 
 }
 
 *{
@@ -16,7 +16,7 @@
 }
 
 body{
-    background-color: #9a73a0; 
+    background-color: #ffffff; 
     color: var(--color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
