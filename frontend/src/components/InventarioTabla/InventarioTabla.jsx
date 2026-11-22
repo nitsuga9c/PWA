@@ -51,7 +51,7 @@ export default function InventarioTabla({ medicamentos, onDelete, onEdit }) {
                     onClick={() => onEdit(med)}
                     className="btn-warning"
                     style={{
-                      backgroundColor: '#e89c23',
+                      backgroundColor: '#b45309',
                       color: 'white',
                       border: 'none',
                       padding: '6px 12px',
