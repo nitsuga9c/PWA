@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { registerRequest } from '../services/api';
 import { useNavigate, Link } from 'react-router-dom';
+import './Registro.css';
 
 export default function Registro() {
   const [name, setName] = useState('');
@@ -10,17 +11,6 @@ export default function Registro() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  const inputStyle = {
-    backgroundColor: '#ffffff',
-    color: '#1e1b2e',
-    padding: '8px 12px',
-    borderRadius: 6,
-    border: '1px solid #d1c4e9',
-    width: '100%',
-    maxWidth: 320,
-    boxSizing: 'border-box',
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,75 +39,56 @@ export default function Registro() {
   };
 
   return (
-    <div
-      style={{
-        background: '#684186',
-        padding: 60,
-        fontFamily: 'sans-serif',
-        borderRadius: 10,
-        color: '#fff',
-      }}
-    >
+    
+    <div className="registro-container">
       <h1>Farmacia Super Morelos</h1>
-      <h2 style={{ color: '#fff', marginTop: 0 }}>Crear Cuenta</h2>
+      <h2>Crear Cuenta</h2>
 
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: 14 }}>
+        <div className="registro-campo">
           <input
             type="text"
             placeholder="Nombre completo"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            style={inputStyle}
+            className="registro-input"
           />
         </div>
 
-        <div style={{ marginBottom: 14 }}>
+        <div className="registro-campo">
           <input
             type="email"
             placeholder="Correo electrónico"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={inputStyle}
+            className="registro-input"
           />
         </div>
 
-        <div style={{ marginBottom: 16 }}>
+        <div className="registro-campo--boton">
           <input
             type="password"
             placeholder="Contraseña (mín. 6 caracteres)"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={inputStyle}
+            className="registro-input"
           />
         </div>
 
-        {error && <p style={{ color: '#ffd6d6', marginBottom: 12 }}>{error}</p>}
-        {mensaje && <p style={{ color: '#d4ffd8', marginBottom: 12 }}>{mensaje}</p>}
+        {error && <p className="registro-error">{error}</p>}
+        {mensaje && <p className="registro-exito">{mensaje}</p>}
 
-        <button
-          type="submit"
-          disabled={loading}
-          style={{
-            padding: '10px 18px',
-            background: '#65347a',
-            color: '#fff',
-            fontWeight: 600,
-            borderRadius: 10,
-            border: '1px solid #fff',
-            cursor: 'pointer',
-          }}
-        >
+        <button type="submit" disabled={loading} className="registro-btn">
           {loading ? 'Registrando...' : 'Registrarse'}
         </button>
       </form>
 
-      <p style={{ marginTop: 18 }}>
+      <p className="registro-pie">
         ¿Ya tienes cuenta?{' '}
-        <Link to="/" style={{ color: '#f3e5f5', fontWeight: 600 }}>
+        <Link to="/login" className="registro-link">
           Inicia sesión aquí
         </Link>
       </p>

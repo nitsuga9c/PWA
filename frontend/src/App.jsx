@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/Login';
 import CatalogoUser from './pages/CatalogoUser';
 import AdminPanel from './pages/AdminPanel';
+import Registro from './pages/Registro';
 import './style.css';
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
       <Route path="/catalogo" element={<CatalogoUser />} />
       <Route path="/admin" element={<AdminPanel />} />
       <Route path="*" element={<Navigate to="/" />} />
+      <Route path="/registro" element={<Registro />} />
     </Routes>
   );
 }

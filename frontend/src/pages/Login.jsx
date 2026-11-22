@@ -28,8 +28,31 @@ export default function Login() {
       <form onSubmit={handleSubmit}>
         <input type="email" placeholder="Correo" value={email} onChange={e => setEmail(e.target.value)} required /><br/><br/>
         <input type="password" placeholder="Contraseña" value={password} onChange={e => setPassword(e.target.value)} required /><br/><br/>
-        <button style= {{  padding: 10, background:'#65347a', color: '#fff', fontWeight: 600, borderRadius: 10}} type="submit">Iniciar Sesion</button>
+        <button style= {{  padding: 10,
+          background: '#684186',
+          color: '#fff',
+          fontWeight: 600,
+          fontFamily: 'sans-serif',
+          borderRadius: 10,
+          border: '1px solid #fff',
+          cursor: 'pointer'}} type="submit">Iniciar Sesion</button>
       </form>
+
+      <br />
+      <button type="button"onClick={() => navigate('/registro')} 
+        style={{
+          padding: 10,
+          background: '#684186',
+          color: '#fff',
+          fontWeight: 600,
+          fontFamily: 'sans-serif',
+          borderRadius: 10,
+          border: '1px solid #fff',
+          cursor: 'pointer'
+        }}
+      >
+        Registrar usuario
+      </button>
     </div>
   );
 }
