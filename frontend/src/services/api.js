@@ -1,5 +1,15 @@
 const API_URL = 'http://localhost:5000/api';
 
+// Registro de Usuario
+export const registerRequest = async (userData) => {
+  const res = await fetch(`${API_URL}/auth/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(userData)
+  });
+  return res.json();
+};
+
 // Login
 export const loginRequest = async (credentials) => {
   const res = await fetch(`${API_URL}/auth/login`, {
