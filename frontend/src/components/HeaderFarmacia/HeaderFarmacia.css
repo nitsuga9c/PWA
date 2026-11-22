@@ -52,13 +52,11 @@
   transition: all 0.25s ease;
 }
 
-/* Luz para Admin */
 .header-pulse-dot--admin {
   background-color: #ffdd00;
   box-shadow: 0 0 10px 3px rgba(233, 213, 255, 0.95);
 }
 
-/* Luz para Usuario */
 .header-pulse-dot--user {
   background-color: #ff0000;
   box-shadow: 0 0 6px 1px rgb(224, 44, 44);
@@ -88,4 +86,45 @@
   0% { transform: scale(0.95); opacity: 0.8; }
   50% { transform: scale(1.15); opacity: 1; }
   100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.header-nav-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #d8b4fe;
+  background-color: #f3e8ff;
+  color: #4c1d95;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+}
+
+.header-nav-btn:hover {
+  background-color: #e9d5ff;
+  border-color: #c084fc;
+  transform: translateY(-1px);
+}
+
+.header-nav-btn:focus-visible {
+  outline: 2px solid #6b21a8;
+  outline-offset: 2px;
+}
+
+.header-nav-btn--admin {
+  background-color: #6b21a8;
+  border-color: #6b21a8;
+  color: #ffffff;
+}
+
+.header-nav-btn--admin:hover {
+  background-color: #581c87;
+  border-color: #581c87;
 }

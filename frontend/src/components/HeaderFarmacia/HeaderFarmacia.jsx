@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './HeaderFarmacia.css';
 
 export default function HeaderFarmacia({ onLogout }) {
+  const navigate = useNavigate();
   const role = localStorage.getItem('role');
   const esAdmin = role === 'admin';
 
@@ -18,9 +20,29 @@ export default function HeaderFarmacia({ onLogout }) {
         </div>
       </div>
 
-      <button onClick={onLogout} className="header-logout-btn">
-        Cerrar Sesión
-      </button>
+      <div className="header-actions" style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+        <button
+          type="button"
+          onClick={() => navigate('/catalogo')}
+          className="header-nav-btn"
+        >
+          Catálogo
+        </button>
+
+        {esAdmin && (
+          <button
+            type="button"
+            onClick={() => navigate('/admin')}
+            className="header-nav-btn header-nav-btn--admin"
+          >
+            Panel Admin
+          </button>
+        )}
+
+        <button type="button" onClick={onLogout} className="header-logout-btn">
+          Cerrar Sesión
+        </button>
+      </div>
     </header>
   );
 }
