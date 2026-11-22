@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { loginRequest } from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -22,37 +23,45 @@ export default function Login() {
   };
 
   return (
-    <div style={{ background: '#684186', padding: 100, fontFamily: 'sans-serif' , borderRadius: 10, borderColor: '#FFF'}}>
-      <h1>Farmacia Super Morelos</h1>
-      <h2 style={{ color: '#fff', padding: 0}}>Iniciar Sesión</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="email" placeholder="Correo" value={email} onChange={e => setEmail(e.target.value)} required /><br/><br/>
-        <input type="password" placeholder="Contraseña" value={password} onChange={e => setPassword(e.target.value)} required /><br/><br/>
-        <button style= {{  padding: 10,
-          background: '#684186',
-          color: '#fff',
-          fontWeight: 600,
-          fontFamily: 'sans-serif',
-          borderRadius: 10,
-          border: '1px solid #fff',
-          cursor: 'pointer'}} type="submit">Iniciar Sesion</button>
-      </form>
+    <div className="login-pantalla">
+      <div className="login-card">
+        <h1 className="login-titulo">Farmacia Super Morelos</h1>
+        <h2 className="login-subtitulo">Iniciar Sesión</h2>
 
-      <br />
-      <button type="button"onClick={() => navigate('/registro')} 
-        style={{
-          padding: 10,
-          background: '#684186',
-          color: '#fff',
-          fontWeight: 600,
-          fontFamily: 'sans-serif',
-          borderRadius: 10,
-          border: '1px solid #fff',
-          cursor: 'pointer'
-        }}
-      >
-        Registrar usuario
-      </button>
+        <form onSubmit={handleSubmit} className="login-form">
+          <input
+            type="email"
+            placeholder="Correo"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="login-input"
+          />
+
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="login-input"
+          />
+
+          <div className="login-acciones">
+            <button type="submit" className="login-btn">
+              Iniciar Sesion
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigate('/registro')}
+              className="login-btn"
+            >
+              Registrar usuario
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
