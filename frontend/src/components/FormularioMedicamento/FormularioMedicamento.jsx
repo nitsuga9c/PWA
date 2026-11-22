@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { guardarEnColaPendiente } from '../../services/colaOffline';
 import './FormularioMedicamento.css';
 
 const PREFIJO_CODIGO = 'MED-';
@@ -12,7 +13,13 @@ function formatearCodigo(numeroCodigo = '') {
   return limpio ? `${PREFIJO_CODIGO}${limpio}` : '';
 }
 
-export default function FormularioMedicamento({ onAgregar, medicamentoEditando, onActualizar, cancelarEdicion }) {
+export default function FormularioMedicamento({
+  onAgregar,
+  medicamentoEditando,
+  onActualizar,
+  cancelarEdicion,
+  onCambioCola
+}) {
   const [numeroCodigo, setNumeroCodigo] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [precioPublico, setPrecioPublico] = useState('');
@@ -83,6 +90,48 @@ export default function FormularioMedicamento({ onAgregar, medicamentoEditando, 
     return '';
   };
 
+  const encolarCreacionOffline = (datosMedicamento) => {
+    const tempId = `temp-${Date.now()}`;
+    guardarEnColaPendiente({
+      tipo: 'CREATE',
+      tempId,
+      payload: datosMedicamento
+    });
+
+    const itemLocal = {
+      ...datosMedicamento,
+      tempId,
+      pendienteSync: true
+    };
+
+    onAgregar(itemLocal);
+    if (onCambioCola) onCambioCola();
+    limpiarFormulario();
+    alert('Sin conexión: el medicamento se guardó en espera y se registrará al volver el internet.');
+  };
+
+  const encolarEdicionOffline = (datosMedicamento) => {
+    const id = medicamentoEditando._id || medicamentoEditando.id || medicamentoEditando.tempId;
+    guardarEnColaPendiente({
+      tipo: 'UPDATE',
+      id,
+      payload: datosMedicamento
+    });
+
+    const itemActualizado = {
+      ...medicamentoEditando,
+      ...datosMedicamento,
+      _id: medicamentoEditando._id,
+      tempId: medicamentoEditando.tempId,
+      pendienteSync: true
+    };
+
+    onActualizar(itemActualizado);
+    if (onCambioCola) onCambioCola();
+    cancelarEdicion();
+    alert('Sin conexión: los cambios se guardaron en espera y se sincronizarán al volver el internet.');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -105,9 +154,15 @@ export default function FormularioMedicamento({ onAgregar, medicamentoEditando, 
 
     const token = localStorage.getItem('token');
 
-    try {
-      if (medicamentoEditando) {
-        const id = medicamentoEditando._id || medicamentoEditando.id;
+    if (medicamentoEditando) {
+      const id = medicamentoEditando._id || medicamentoEditando.id || medicamentoEditando.tempId;
+
+      if (!navigator.onLine || String(id).startsWith('temp-')) {
+        encolarEdicionOffline(datosMedicamento);
+        return;
+      }
+
+      try {
         const response = await fetch(`http://localhost:5000/api/medicines/${id}`, {
           method: 'PUT',
           headers: {
@@ -126,7 +181,17 @@ export default function FormularioMedicamento({ onAgregar, medicamentoEditando, 
           const errData = await response.json();
           setErrorMsg(errData.error || errData.message || 'Error al actualizar');
         }
-      } else {
+      } catch (error) {
+        console.error('Error de red al actualizar, guardando en cola:', error);
+        encolarEdicionOffline(datosMedicamento);
+      }
+    } else {
+      if (!navigator.onLine) {
+        encolarCreacionOffline(datosMedicamento);
+        return;
+      }
+
+      try {
         const response = await fetch('http://localhost:5000/api/medicines', {
           method: 'POST',
           headers: {
@@ -139,16 +204,16 @@ export default function FormularioMedicamento({ onAgregar, medicamentoEditando, 
         if (response.ok) {
           const nuevo = await response.json();
           onAgregar(nuevo);
-          alert('¡Medicamento registrado con éxito!');
+          alert('Medicamento registrado con éxito');
           limpiarFormulario();
         } else {
           const errData = await response.json();
           setErrorMsg(errData.error || errData.message || 'Error al registrar');
         }
+      } catch (error) {
+        console.error('Error de red al registrar, guardando en cola:', error);
+        encolarCreacionOffline(datosMedicamento);
       }
-    } catch (error) {
-      console.error('Error de red:', error);
-      setErrorMsg('No se pudo conectar con el servidor.');
     }
   };
 
