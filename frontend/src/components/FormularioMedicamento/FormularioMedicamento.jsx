@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { guardarEnColaPendiente } from '../../services/colaOffline';
 import './FormularioMedicamento.css';
 
+const rawApiUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').trim();
+const API_URL = rawApiUrl.replace(/\/+$/, '');
 const PREFIJO_CODIGO = 'MED-';
 
 function limpiarPrefijo(codigo = '') {
@@ -90,7 +92,7 @@ export default function FormularioMedicamento({
       return 'Las existencias deben ser un número entero mayor o igual a 0.';
     }
 
-    if (fechaCaducidad === ''){
+    if (fechaCaducidad === '') {
       return 'Ingrese una fecha valida';
     }
 
@@ -171,7 +173,7 @@ export default function FormularioMedicamento({
       }
 
       try {
-        const response = await fetch(`http://localhost:5000/api/medicines/${id}`, {
+        const response = await fetch(`${API_URL}/medicines/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -200,7 +202,7 @@ export default function FormularioMedicamento({
       }
 
       try {
-        const response = await fetch('http://localhost:5000/api/medicines', {
+        const response = await fetch(`${API_URL}/medicines`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -333,7 +335,7 @@ export default function FormularioMedicamento({
             type="date"
             value={fechaCaducidad}
             onChange={(e) => setFechaCaducidad(e.target.value)}
-            placeholder='2000-01-01'
+            placeholder="2000-01-01"
           />
         </div>
 

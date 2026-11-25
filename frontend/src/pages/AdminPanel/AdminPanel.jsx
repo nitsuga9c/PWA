@@ -5,9 +5,11 @@ import TarjetaEstadistica from '../../components/TarjetaEstadistica/TarjetaEstad
 import TarjetaCaducidad from '../../components/TarjetaCaducidad/TarjetaCaducidad';
 import InventarioTabla from '../../components/InventarioTabla/InventarioTabla';
 import FormularioMedicamento from '../../components/FormularioMedicamento/FormularioMedicamento';
-import { obtenerColaPendiente, guardarEnColaPendiente, sincronizarColaPendiente,  guardarListaCache, obtenerListaCache, } from '../../services/colaOffline';
+import { obtenerColaPendiente, guardarEnColaPendiente, sincronizarColaPendiente, guardarListaCache, obtenerListaCache, } from '../../services/colaOffline';
 import './AdminPanel.css';
 
+const rawApiUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').trim();
+const API_URL = rawApiUrl.replace(/\/+$/, '');
 const obtenerIdItem = (item) => item?._id || item?.id || item?.tempId;
 
 export default function AdminPanel() {
@@ -23,7 +25,7 @@ export default function AdminPanel() {
 
   const cargarMedicamentos = useCallback(async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/medicines');
+      const res = await fetch(`${API_URL}/medicines`);
       if (res.ok) {
         const data = await res.json();
         setMedicamentos(data);
@@ -119,7 +121,7 @@ export default function AdminPanel() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/medicines/${id}`, {
+      const response = await fetch(`${API_URL}/medicines/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -161,11 +163,11 @@ export default function AdminPanel() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/medicines/${id}`, {
+      const response = await fetch(`${API_URL}/medicines/${id}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (response.ok) {

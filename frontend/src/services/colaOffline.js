@@ -1,12 +1,12 @@
 const COLA_KEY = 'farmacia_cola_medicines_v1';
 const CACHE_LISTA_KEY = 'farmacia_lista_medicamentos_v1';
-const API_URL = 'http://localhost:5000/api';
+const rawApiUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').trim();
+const API_URL = rawApiUrl.replace(/\/+$/, '');
 
 export function guardarListaCache(medicamentos) {
   try {
     localStorage.setItem(CACHE_LISTA_KEY, JSON.stringify(medicamentos));
   } catch {
-    // Ignorar errores de cuota
   }
 }
 
