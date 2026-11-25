@@ -55,6 +55,7 @@ export default function InventarioTabla({ medicamentos, onDelete, onEdit, onUpda
             <tr>
               <th>Código</th>
               <th>Descripción</th>
+              <th>Categoría</th>
               <th>Stock</th>
               <th>Fecha de Caducidad</th>
               <th>Precio Público</th>
@@ -66,7 +67,7 @@ export default function InventarioTabla({ medicamentos, onDelete, onEdit, onUpda
           <tbody>
             {medicamentosOrdenados.length === 0 ? (
               <tr>
-                <td colSpan="8" className="table-empty-msg">
+                <td colSpan="9" className="table-empty-msg">
                   No se encontraron medicamentos con "{busqueda}".
                 </td>
               </tr>
@@ -75,6 +76,12 @@ export default function InventarioTabla({ medicamentos, onDelete, onEdit, onUpda
                 const uniqueKey = med._id || med.id || med.tempId || `med-${index}`;
                 const codigo = med.codigoArticulo || 'N/D';
                 const descripcion = med.descripcion || med.name || 'Sin descripción';
+                const nombreCategoria =
+                  typeof med.categoria === 'object' && med.categoria !== null
+                    ? med.categoria.name || 'General'
+                    : /^[0-9a-fA-F]{24}$/.test(String(med.categoria || '').trim())
+                    ? 'General'
+                    : med.categoria || 'General';
                 const existencias =
                   med.existenciasTotal !== undefined ? med.existenciasTotal : (med.stock || 0);
                 const fechaCaducidad = med.fechaCaducidad
@@ -87,6 +94,7 @@ export default function InventarioTabla({ medicamentos, onDelete, onEdit, onUpda
                   <tr key={uniqueKey}>
                     <td><strong>{codigo}</strong></td>
                     <td>{descripcion}</td>
+                    <td>{nombreCategoria}</td>
                     <td>
                       <div className="stock-control">
                         <button

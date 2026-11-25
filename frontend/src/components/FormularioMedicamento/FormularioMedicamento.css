@@ -63,7 +63,6 @@
   background-color: #6d28d9;
 }
 
-/* Estilo para el botón de cancelar edición */
 .form-cancel-btn {
   background-color: #6b7280;
   color: white;
@@ -78,4 +77,24 @@
 
 .form-cancel-btn:hover {
   background-color: #4b5563;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #111827;
+  font-size: 0.95rem;
+  font-family: inherit;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: #7e22ce;
+  box-shadow: 0 0 0 3px rgba(126, 34, 206, 0.15);
 }

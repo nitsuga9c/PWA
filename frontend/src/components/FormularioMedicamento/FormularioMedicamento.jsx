@@ -5,6 +5,19 @@ import './FormularioMedicamento.css';
 const rawApiUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').trim();
 const API_URL = rawApiUrl.replace(/\/+$/, '');
 const PREFIJO_CODIGO = 'MED-';
+const CATEGORIA_DEFAULT = 'General';
+
+const CATEGORIAS_FARMACIA = [
+  'General',
+  'Analgésicos y Antiinflamatorios',
+  'Antibióticos',
+  'Gastrointestinales',
+  'Respiratorios y Antigripales',
+  'Cardiovasculares y Metabólicos',
+  'Dermatológicos',
+  'Vitaminas y Suplementos',
+  'Material de Curación',
+];
 
 function limpiarPrefijo(codigo = '') {
   return String(codigo).replace(/^MED-/i, '').trim();
@@ -13,6 +26,14 @@ function limpiarPrefijo(codigo = '') {
 function formatearCodigo(numeroCodigo = '') {
   const limpio = limpiarPrefijo(numeroCodigo);
   return limpio ? `${PREFIJO_CODIGO}${limpio}` : '';
+}
+
+function obtenerNombreCategoria(cat) {
+  if (!cat) return CATEGORIA_DEFAULT;
+  if (typeof cat === 'object') return cat.name || CATEGORIA_DEFAULT;
+  const str = String(cat).trim();
+  if (!str || /^[0-9a-fA-F]{24}$/.test(str)) return CATEGORIA_DEFAULT;
+  return str;
 }
 
 export default function FormularioMedicamento({
@@ -28,7 +49,7 @@ export default function FormularioMedicamento({
   const [precioNeto, setPrecioNeto] = useState('');
   const [existenciasTotal, setExistenciasTotal] = useState('');
   const [fechaCaducidad, setFechaCaducidad] = useState('');
-  const [categoria, setCategoria] = useState('6af0c8a462b71c8215d2e940');
+  const [categoria, setCategoria] = useState(CATEGORIA_DEFAULT);
   const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
@@ -40,13 +61,7 @@ export default function FormularioMedicamento({
       setPrecioNeto(medicamentoEditando.precioNeto ?? '');
       setExistenciasTotal(medicamentoEditando.existenciasTotal ?? '');
       setFechaCaducidad(medicamentoEditando.fechaCaducidad || '');
-      if (medicamentoEditando.categoria) {
-        setCategoria(
-          typeof medicamentoEditando.categoria === 'object'
-            ? medicamentoEditando.categoria._id
-            : medicamentoEditando.categoria
-        );
-      }
+      setCategoria(obtenerNombreCategoria(medicamentoEditando.categoria));
     } else {
       limpiarFormulario();
     }
@@ -59,7 +74,7 @@ export default function FormularioMedicamento({
     setPrecioNeto('');
     setExistenciasTotal('');
     setFechaCaducidad('2027-01-01');
-    setCategoria('6af0c8a462b71c8215d2e940');
+    setCategoria(CATEGORIA_DEFAULT);
     setErrorMsg('');
   };
 
@@ -287,6 +302,21 @@ export default function FormularioMedicamento({
             onChange={(e) => setDescripcion(e.target.value)}
             placeholder="Ej. Ibuprofeno 400mg"
           />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="categoriaMed">Categoría</label>
+          <select
+            id="categoriaMed"
+            value={categoria}
+            onChange={(e) => setCategoria(e.target.value)}
+          >
+            {CATEGORIAS_FARMACIA.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="form-group">
