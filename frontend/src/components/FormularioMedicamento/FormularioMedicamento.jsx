@@ -25,6 +25,7 @@ export default function FormularioMedicamento({
   const [precioPublico, setPrecioPublico] = useState('');
   const [precioNeto, setPrecioNeto] = useState('');
   const [existenciasTotal, setExistenciasTotal] = useState('');
+  const [fechaCaducidad, setFechaCaducidad] = useState('');
   const [categoria, setCategoria] = useState('6af0c8a462b71c8215d2e940');
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -36,6 +37,7 @@ export default function FormularioMedicamento({
       setPrecioPublico(medicamentoEditando.precioPublico ?? '');
       setPrecioNeto(medicamentoEditando.precioNeto ?? '');
       setExistenciasTotal(medicamentoEditando.existenciasTotal ?? '');
+      setFechaCaducidad(medicamentoEditando.fechaCaducidad || '');
       if (medicamentoEditando.categoria) {
         setCategoria(
           typeof medicamentoEditando.categoria === 'object'
@@ -54,6 +56,7 @@ export default function FormularioMedicamento({
     setPrecioPublico('');
     setPrecioNeto('');
     setExistenciasTotal('');
+    setFechaCaducidad('2027-01-01');
     setCategoria('6af0c8a462b71c8215d2e940');
     setErrorMsg('');
   };
@@ -85,6 +88,10 @@ export default function FormularioMedicamento({
     }
     if (existenciasTotal === '' || Number.isNaN(stock) || !Number.isInteger(stock) || stock < 0) {
       return 'Las existencias deben ser un número entero mayor o igual a 0.';
+    }
+
+    if (fechaCaducidad === ''){
+      return 'Ingrese una fecha valida';
     }
 
     return '';
@@ -149,6 +156,7 @@ export default function FormularioMedicamento({
       precioPublico: Number(precioPublico),
       precioNeto: Number(precioNeto),
       existenciasTotal: Number(existenciasTotal),
+      fechaCaducidad: fechaCaducidad ? new Date(fechaCaducidad) : null,
       categoria
     };
 
@@ -315,6 +323,17 @@ export default function FormularioMedicamento({
             value={existenciasTotal}
             onChange={(e) => setExistenciasTotal(e.target.value)}
             placeholder="Ej. 50"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="fechaCaducidadMed">Fecha de Caducidad</label>
+          <input
+            id="fechaCaducidadMed"
+            type="date"
+            value={fechaCaducidad}
+            onChange={(e) => setFechaCaducidad(e.target.value)}
+            placeholder='2000-01-01'
           />
         </div>
 

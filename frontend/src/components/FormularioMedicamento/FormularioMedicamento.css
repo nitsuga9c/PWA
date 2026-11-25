@@ -32,11 +32,11 @@
   border: 1px solid #e9d5ff;
   border-radius: 6px;
   font-size: 0.95rem;
-  background-color: #ffffff !important; /* Fondo blanco */
-  color: #2e1065 !important;           /* Texto morado oscuro */
+  background-color: #ffffff !important; 
+  color: #2e1065 !important;        
 }
 
-/* Color del texto auxiliar de marcador de posición (placeholder) */
+
 .form-group input::placeholder {
   color: #9ca3af;
 }

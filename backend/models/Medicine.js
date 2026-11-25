@@ -9,7 +9,9 @@ const medicineSchema = new mongoose.Schema({
   precioNeto: { type: Number, required: true },
   codigoDeBarras: { type: String },
   existenciasTotal: { type: Number, default: 0 },
+  fechaCaducidad: { type: Date },
   categoria: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true }
+
 });
 
 module.exports = mongoose.model('Medicine', medicineSchema);

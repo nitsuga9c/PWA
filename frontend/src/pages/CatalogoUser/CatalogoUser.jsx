@@ -81,6 +81,7 @@ export default function CatalogoUser() {
                   <div>
                     <strong>{med.descripcion}</strong>
                     <span>{med.existenciasTotal} disponibles</span>
+                    <span> Fecha de Caducidad: {med.fechaCaducidad ? new Date(med.fechaCaducidad).toLocaleDateString() : 'N/A'}</span>
                   </div>
                   <span className="catalogo-precio">${Number(med.precioPublico).toFixed(2)}</span>
                 </li>

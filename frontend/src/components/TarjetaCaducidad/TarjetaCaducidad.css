@@ -1,0 +1,70 @@
+.tarjeta-caducidad {
+  background-color: #fec7c7;
+  border: 1px solid #f59e0b;
+  border-left: 5px solid #b45309;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  color: #451a03;
+}
+
+.tarjeta-caducidad__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.tarjeta-caducidad__titulo {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #78350f;
+}
+
+.tarjeta-caducidad__subtitulo {
+  font-size: 0.85rem;
+  color: #92400e;
+  font-weight: 500;
+}
+
+.tarjeta-caducidad__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tarjeta-caducidad__lista--scrollable {
+  max-height: 275px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.tarjeta-caducidad__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background-color: #fff8eb;
+  border: 1px solid #7c4040;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+.tarjeta-caducidad__item--vencido {
+  background-color: #ffe4e6;
+  border-color: #fda4af;
+  color: #881337;
+}
+
+.tarjeta-caducidad__dias {
+  font-weight: 700;
+  white-space: nowrap;
+}
