@@ -12,6 +12,7 @@ export default function Login() {
     e.preventDefault();
     const data = await loginRequest({ email, password });
     if (data.token) {
+      localStorage.removeItem('guest');
       localStorage.setItem('token', data.token);
       localStorage.setItem('role', data.role);
       alert(`Bienvenido ${data.name} (${data.role})`);
@@ -20,6 +21,13 @@ export default function Login() {
     } else {
       alert(data.message || 'Error al iniciar sesión');
     }
+  };
+
+  const handleGuestAccess = () => {
+    localStorage.removeItem('token');
+    localStorage.setItem('role', 'guest');
+    localStorage.setItem('guest', 'true');
+    navigate('/catalogo');
   };
 
   return (
@@ -58,6 +66,14 @@ export default function Login() {
               className="login-btn"
             >
               Registrar usuario
+            </button>
+
+            <button
+              type="button"
+              onClick={handleGuestAccess}
+              className="login-btn login-btn--invitado"
+            >
+              Entrar como invitado
             </button>
           </div>
         </form>
